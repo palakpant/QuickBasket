@@ -4,6 +4,7 @@ import com.ecommerce.quickBasket.model.Category;
 import com.ecommerce.quickBasket.service.CategoryService;
 import com.ecommerce.quickBasket.service.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,14 +23,14 @@ public class CategoryController {
     }
 
     @GetMapping("/api/public/categories")
-    public List<Category> getAllCategories(){
-        return categoryService.getAllCategories();
+    public ResponseEntity<List<Category>> getAllCategories(){
+        return ResponseEntity.ok(categoryService.getAllCategories());
     }
 
     @PostMapping("/api/public/categories")
-    public String addCategory(@RequestBody Category category){
+    public ResponseEntity<String> addCategory(@RequestBody Category category){
         categoryService.createCategory(category);
-        return "Category added successfully";
+        return new ResponseEntity<>("Category added successfully", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/api/admin/categories/{categoryId}")
