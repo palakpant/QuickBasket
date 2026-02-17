@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +35,18 @@ public class CategoryServiceImpl implements CategoryService{
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
 
+
+    }
+
+    @Override
+    public String updateCategory(Long categoryId, Category category) {
+        Optional<Category> existingCategory = categories.stream().filter(c->c.getCategoryId().equals(categoryId)).findFirst();
+        if(existingCategory.isPresent()){
+            existingCategory.get().setCategoryName(category.getCategoryName());
+            return "Category updated successfully";
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
+        }
 
     }
 }
