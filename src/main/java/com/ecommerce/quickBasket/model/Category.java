@@ -1,9 +1,18 @@
 package com.ecommerce.quickBasket.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Category {
+
+    @Id
     private Long categoryId;
     private String categoryName;
 
+
+    public Category() {
+    }
 
     public Category(Long categoryId, String categoryName) {
         this.categoryId = categoryId;
